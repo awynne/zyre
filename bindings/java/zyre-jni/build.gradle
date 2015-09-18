@@ -5,8 +5,6 @@ apply plugin: 'application'
 
 mainClassName = "org.zyre.demo.HelloZyre"
 
-applicationDefaultJvmArgs = ["-Djava.library.path=./src/main/c:/usr/local/lib"]
-
 repositories {
     mavenCentral()
     flatDir {
@@ -27,13 +25,13 @@ dependencies {
 
 run {
     systemProperties = System.getProperties()
-    systemProperties['java.library.path'] = "./src/main/c:/usr/local/lib"
+    systemProperties['java.library.path'] = "${project.rootDir}/src/main/c:/usr/local/lib"
     environment 'LD_PRELOAD', '/usr/local/lib/libzyre.so'
 }
 
 test {
     systemProperties = System.getProperties()
-    systemProperties['java.library.path'] = "./src/main/c:/usr/local/lib"
+    systemProperties['java.library.path'] = "${project.rootDir}/src/main/c:/usr/local/lib"
     environment 'LD_PRELOAD', '/usr/local/lib/libzyre.so'
 }
 
