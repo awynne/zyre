@@ -5,7 +5,12 @@ These steps have been tested on Linux only.
 
 ## prerequisites
 
-first, install these libs locally:
+zeromq has a number of prereq's (see libczmq link below for details).
+You can install them on an ubunu-ish machine with the command:
+
+    sudo apt-get install libtool pkg-config build-essential autoconf automake uuid-dev uuid
+
+Nex compile and install thefollowing libs locally:
   * libsodium, [installation](http://doc.libsodium.org/installation/index.html)
   * libzmq, [instructions](http://zeromq.org/intro:get-the-software)
   * libczmq, [instructinos](http://czmq.zeromq.org/page:get-the-software)
