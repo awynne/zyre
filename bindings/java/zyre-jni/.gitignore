@@ -7,3 +7,4 @@ bin/
 .gradle
 src/main/c/libzrejni.so
 *.swp
+tmp
