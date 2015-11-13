@@ -1,0 +1,48 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        // We want to publish maven-ized artifacts
+        zyreCoreJar(MavenPublication) {
+            artifacts {
+                artifact "build/libs/zyre-jni-core-${version}.jar"
+            }
+        }
+    }   
+}
+
+dependencies {
+    compile 'commons-cli:commons-cli:1.3.1'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+	
+    // test
+    testCompile 'junit:junit:4.12'
+}
+
+
+/*
+run {
+    systemProperties = System.getProperties()
+    systemProperties['java.library.path'] = "${project.rootDir}/src/main/c:/usr/local/lib"
+    environment 'LD_PRELOAD', '/usr/local/lib/libzyre.so'
+}
+*/
+
+test {
+    systemProperties = System.getProperties()
+    systemProperties['java.library.path'] = "${project.rootDir}/src/main/c:/usr/local/lib"
+    environment 'LD_PRELOAD', '/usr/local/lib/libzyre.so'
+}
+
+// Ucomment this to log messages to debug test code
+//test.testLogging.showStandardStreams = true
+

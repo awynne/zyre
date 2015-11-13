@@ -1,0 +1,60 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+version="0.1"
+group="com.bosch.zyre"
+
+def zyreJniSoDir = "${project.rootDir}/../native/x64linux"
+def zmqSoDir = "${project.rootDir}/../tmp/local/lib"
+def zyreSo = "${zmqSoDir}/libzyre.so"
+
+def nativeLibPath = "${zyreJniSoDir}:${zmqSoDir}"
+def preloadPath   = "$zyreSo"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+	compile "com.bosch.zyre:zyre-jni-core:0.1"
+	
+    // test
+    testCompile 'junit:junit:4.12'
+	testCompile "com.bosch.zyre:zyre-jni-test:0.1"
+}
+
+publishing {
+	publications {
+		// We want to publish maven-ized artifacts
+		zyreCoreJar(MavenPublication) {
+			artifacts {
+				artifact "build/libs/${project.name}-${version}.jar"
+			}
+		}
+	}
+}
+
+jar {
+	from("$zyreJniSoDir") {
+		include "*.so"
+		into("native")
+	}
+	from("$zmqSoDir") {
+		include "*.so"
+		into("native")
+	}
+}
+
+test {
+    systemProperties = System.getProperties()
+    systemProperties['java.library.path'] = "$nativeLibPath"
+    environment 'LD_PRELOAD', "$preloadPath"
+}
+
+// Ucomment this to log messages to debug test code
+//test.testLogging.showStandardStreams = true

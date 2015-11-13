@@ -1,4 +1,7 @@
 /*
  */
 
+include ':zyre-jni-core'
+include ':zyre-jni-test'
+
 rootProject.name = 'zyre-jni'

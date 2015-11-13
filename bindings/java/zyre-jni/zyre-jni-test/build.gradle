@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+	publications {
+		// We want to publish maven-ized artifacts
+		zyreTestJar(MavenPublication) {
+			artifacts {
+				artifact "build/libs/zyre-jni-test-${version}.jar"
+			}
+		}
+	}
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile project(":zyre-jni-core")
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile "junit:junit:4.11"
+}

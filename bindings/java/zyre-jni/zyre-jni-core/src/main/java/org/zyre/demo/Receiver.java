@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.zyre.Zyre;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class Receiver implements Runnable {
 	
 	Zyre zyre;

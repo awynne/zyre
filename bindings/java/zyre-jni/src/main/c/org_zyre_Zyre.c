@@ -3,13 +3,13 @@
 #include "org_zyre_Zyre.h"
 #include "zyre.h"
 
-static jfieldID nodeFID;
+jfieldID nodeFID;
 
-inline void put_node(JNIEnv *env, jobject obj, void *node) {
+/*inline*/ void put_node(JNIEnv *env, jobject obj, void *node) {
     (*env)->SetLongField(env, obj, nodeFID, (jlong) node);
 }
 
-inline void* get_node(JNIEnv *env, jobject obj) {
+/*inline*/ void* get_node(JNIEnv *env, jobject obj) {
     return (void*) (*env)->GetLongField(env, obj, nodeFID);
 }
 

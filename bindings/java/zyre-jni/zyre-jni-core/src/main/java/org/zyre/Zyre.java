@@ -10,7 +10,7 @@ public class Zyre {
 		String path = System.getProperty("java.library.path");
 		System.out.println("Zyre java.library.path: " + path);
 		System.loadLibrary("zyre"); 
-		System.loadLibrary("zrejni"); 
+		System.loadLibrary("zyre-jni"); 
 		nativeInit();
 	}
 	
