@@ -29,6 +29,10 @@ public class Utils {
 			}
 		}
 		
+		if (result.get("event") == null) {
+			return new HashMap<String,String>();
+		}
+		
 		return result;
 	}
 

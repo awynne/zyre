@@ -51,9 +51,10 @@ jar {
 }
 
 test {
-    systemProperties = System.getProperties()
-    systemProperties['java.library.path'] = "$nativeLibPath"
+//    systemProperties = System.getProperties()
+//    systemProperties['java.library.path'] = "$nativeLibPath"
     environment 'LD_PRELOAD', "$preloadPath"
+	environment 'LD_LIBRARY_PATH', "$nativeLibPath"
 }
 
 // Ucomment this to log messages to debug test code

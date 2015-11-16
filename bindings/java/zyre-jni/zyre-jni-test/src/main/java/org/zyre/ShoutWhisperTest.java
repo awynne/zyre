@@ -19,6 +19,10 @@ import org.zyre.Zyre;
  */
 public class ShoutWhisperTest {
 	
+	static {
+		Zyre.loadSystemLibrary();
+	}
+	
 	private static final Logger log = LoggerFactory.getLogger(ShoutWhisperTest.class);
 
 	public static final String PING = "ping";

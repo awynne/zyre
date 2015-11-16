@@ -17,6 +17,10 @@ import org.zyre.Zyre;
  */
 public class PingPongTest {
 	
+	static {
+		Zyre.loadSystemLibrary();
+	}
+	
 	private static final Logger log = LoggerFactory.getLogger(PingPongTest.class);
 
 	public static final String PING = "ping";

@@ -86,6 +86,7 @@ JNIEXPORT jstring JNICALL Java_org_zyre_Zyre_recv (JNIEnv * env, jobject thisObj
         snprintf(ret, len, "event::%s|peer::%s|group::|message::%s", event, peer, message);
     }
     else if (strcmp(event, "JOIN") == 0) {
+        group = zmsg_popstr (zmsg);
         snprintf(ret, len, "event::%s|peer::%s|group::%s|message::", event, peer, group);
     }
     else {
