@@ -39,6 +39,11 @@ Or, compile on arm (raspberry pi):
 
     gcc -fPIC -lzyre -I"$JAVA_HOME/include" -I"$JAVA_HOME/include/linux" -shared -o src/main/c/native/pi/libzrejni.so src/main/c/org_zyre_Zyre.c
 
+Or, compile on osx:
+
+    ./build_osx_zyre-jni.sh
+
+
 ## Set a symlink to point to the library for your architecture
 
 on amd64:
@@ -82,9 +87,9 @@ compile java classes using gradlew:
 
     ./gradlew --daemon build
 
-run HelloZyre using gradlew:
+test using gradlew:
 
-    ./gradlew --daemon run
+    ./gradlew --daemon test
 
 OR run HelloZyre from the command line, using java command:
 
