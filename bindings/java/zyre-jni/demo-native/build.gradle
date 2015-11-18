@@ -68,15 +68,28 @@ task copyNativeOSX(type: Copy) {
     into "./dist/native/osx"
 }
 
+task copyNativeLinux(type: Copy) {
+    from "$zyreJniSoDir"
+    from "$zmqSoDir"
+    include "libsodium.so"
+    include "libzmq.so"
+    include "libczmq.so"
+    include "libzyre.so"
+    include "libzyre-jni.so"
+    into "./dist/native/x64linux"
+}
+
 task copyNative() {
     if (platform.equals("osx")) {
         copyNativeOSX.execute()
+    }
+    else if (platform.equals("x64linux")) {
+        copyNativeLinux.execute()
     }
     else {
         println "copy native for $platform not supported yet"
     }
 }
-
 
 startScripts {
     doLast {
@@ -85,3 +98,4 @@ startScripts {
             .replace('DEFAULT_JVM_OPTS=\"\"', 'DEFAULT_JVM_OPTS=\"-Djava.library.path=$NATIVE_PATH\"')
     }
 }
+
