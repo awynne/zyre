@@ -17,10 +17,9 @@ public class ZyreDemo {
     private final static Logger log = LoggerFactory.getLogger(ZyreDemo.class);
 
     public static void main(String[] args) {
-    	String ldLibraryPath = System.getenv("LD_LIBRARY_PATH");
-    	String ldPreload = System.getenv("LD_PRELOAD");
-    	log.info("LD_LIBRARY_PATH: " + ldLibraryPath);
-    	log.info("LD_PRELOAD: " + ldPreload);
+    	log.info("LD_LIBRARY_PATH: " + System.getenv("LD_LIBRARY_PATH"));
+    	log.info("LD_PRELOAD: " + System.getenv("LD_PRELOAD"));
+    	log.info("java.library.path = " + System.getProperty("java.library.path"));
 
     	ZyreDemo demo = new ZyreDemo();
     	
