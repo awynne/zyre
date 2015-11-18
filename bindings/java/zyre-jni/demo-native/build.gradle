@@ -8,6 +8,8 @@ group="com.bosch.zyre"
 
 mainClassName = "com.example.hellozyre.ZyreDemo"
 
+def artifactBase = "${project.name}-${project.version}"
+
 def os = System.properties['os.name'].toLowerCase()
 def platform
 
@@ -47,14 +49,39 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-jar {
-	manifest {
-	  attributes(
-		"Class-Path": configurations.compile.collect { it.getName() }.join(' '))
-	}
+distZip {
+    dependsOn {[copyNative]}
+
+    into("$artifactBase") {
+        from "./dist"
+    }
 }
 
-run {
-    systemProperties['java.library.path'] = "$nativeLibPath"
-    environment 'LD_PRELOAD', "$preloadPath"
+task copyNativeOSX(type: Copy) {
+    from "$zyreJniSoDir"
+    from "$zmqSoDir"
+    include "libsodium.dylib"
+    include "libzmq.dylib"
+    include "libczmq.dylib"
+    include "libzyre.dylib"
+    include "libzyre-jni.dylib"
+    into "./dist/native/osx"
+}
+
+task copyNative() {
+    if (platform.equals("osx")) {
+        copyNativeOSX.execute()
+    }
+    else {
+        println "copy native for $platform not supported yet"
+    }
+}
+
+
+startScripts {
+    doLast {
+        def unixScript = file getUnixScript()
+        unixScript.text = unixScript.text
+            .replace('DEFAULT_JVM_ARGS=\"\"', 'DEFAULT_JVM_ARGS=\"-D$JAVA_LIBRARY_PATH\"')
+    }
 }
