@@ -32,7 +32,7 @@ task generateJniHeaders(type: Exec, dependsOn: 'classes') {
 }
 
 tasks.withType(Test) {
-    systemProperty "java.library.path", "/usr/lib:/usr/local/lib:$projectDir"
+    systemProperty "java.library.path", "/usr/lib:/usr/local/lib:$projectDir:$projectDir/../../../czmq/bindings/czmq-jni"
 }
 
 task initCMake(type: Exec, dependsOn: 'generateJniHeaders') {
