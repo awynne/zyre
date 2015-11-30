@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 group = "org.zeromq"
 version = "0.1.0-SNAPSHOT"
@@ -7,6 +8,17 @@ version = "0.1.0-SNAPSHOT"
 repositories {
     mavenLocal()
     mavenCentral()
+}
+
+publishing {
+    publications {
+        // We want to publish maven-ized artifacts
+        zyreCoreJar(MavenPublication) {
+            artifacts {
+                artifact "build/libs/${project.name}-${version}.jar"
+            }
+        }
+    }   
 }
 
 sourceCompatibility = 1.7
